@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "../styles.css";
 
 export function Rubric() {
   // State Management
@@ -13,15 +14,20 @@ export function Rubric() {
 
   // Prompt for AI
   const prompt = `You are a professor in higher education teaching a course on ${input} and you have a PhD. You are also an expert in evaluation. Using your background, please create a grading rubric for ${selectedValue} using ${desiredGrading}. The grading rubric should have only 1 complete statement with a grade scale from 0 to 5.`;
+  console.log(prompt);
 
   // Handle input changes
   const handleInputChange = (e) => setInput(e.target.value);
   const handleSelectChange = (e) => setSelectedValue(e.target.value);
 
-   // Handle Multi-Select Change
-   const handleCriteriaChange = (e) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-    setDesiredGrading(selectedOptions);
+  // Handle Checkbox Selection
+  const handleCriteriaChange = (e) => {
+    const value = e.target.value;
+    setDesiredGrading((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value) // Remove if already selected
+        : [...prev, value] // Add if not selected
+    );
   };
 
   // API Call Function
@@ -57,45 +63,66 @@ export function Rubric() {
   // Clear Results
   const clearResults = () => {
     setInput("");
-    setResponse("");
+    setResponse(null);
     setSelectedValue("");
     setDesiredGrading([]);
   };
 
   return (
-    <div className="container">
-      <label>Enter the Course Name or Subject:</label>
-      <input
-        type="text"
-        value={input}
-        onChange={handleInputChange}
-        className="textBox"
-      />
+    <div className="rubric-container">
+      <h2>Rubric Generator</h2>
+      <div className="form-group">
+        <label>Enter the Course Name or Subject:</label>
+        <input type="text" value={input} onChange={handleInputChange} />
+      </div>
 
-      <label>Select Evaluation Type:</label>
-      <select value={selectedValue} onChange={handleSelectChange}>
-        <option value="Essay">Essay</option>
-        <option value="Presentation">Presentation</option>
-        <option value="Test">Test</option>
-        <option value="Coding">Coding</option>
-      </select>
+      <div className="form-group">
+        <label>Select Evaluation Type:</label>
+        <select value={selectedValue} onChange={handleSelectChange}>
+          <option value="Test">Test</option>
+          <option value="Coding">Coding</option>
+          <option value="Presentation">Presentation</option>
+          <option value="Essay">Essay</option>
+        </select>
+      </div>
 
-      <label>Select Evaluation Criteria (Hold Ctrl to Select Multiple):</label>
-      <select multiple value={desiredGrading} onChange={handleCriteriaChange}>
-        <option value="Clarity">Clarity</option>
-        <option value="Accuracy">Accuracy</option>
-        <option value="Creativity">Creativity</option>
-        <option value="Critical Thinking">Critical Thinking</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <button onClick={sendMessage}>Generate Rubric</button>
-      <button onClick={clearResults}>Clear Results</button>
+      <div className="form-group">
+        <label>Select Evaluation Criteria:</label>
+        <div className="checkbox-group">
+          {["Clarity", "Accuracy", "Creativity", "Critical Thinking"].map((item) => (
+            <label key={item}>
+              <input
+                type="checkbox"
+                value={item}
+                checked={desiredGrading.includes(item)}
+                onChange={handleCriteriaChange}
+              />
+              {item}
+            </label>
+          ))}
+          <label>
+            <input
+              type="checkbox"
+              value="Other"
+              checked={desiredGrading.includes("Other")}
+              onChange={handleCriteriaChange}
+            />
+            Other
+          </label>
+        </div>
+      </div>
+      <div className="button-group">
+        <button onClick={sendMessage}>Generate Rubric</button>
+        <button onClick={clearResults}>Clear Results</button>
+      </div>
+      
 
       {response && (
-        <div>
+        <div className="rubric-output">
           <h3>Generated Rubric:</h3>
-          <p>{response}</p>
+          {response.split("-> ").map((line, index) =>
+            line.trim() ? <p key={index}>- {line.trim()}</p> : null
+          )}
         </div>
       )}
     </div>
