@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/RubricAI/static/css/main.4b18497c.css",
+    "main.js": "/RubricAI/static/js/main.6668507c.js",
+    "index.html": "/RubricAI/index.html",
+    "main.4b18497c.css.map": "/RubricAI/static/css/main.4b18497c.css.map",
+    "main.6668507c.js.map": "/RubricAI/static/js/main.6668507c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b18497c.css",
+    "static/js/main.6668507c.js"
+  ]
+}
