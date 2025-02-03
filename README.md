@@ -24,7 +24,7 @@ AI-powered grading rubric generator for educators. Quickly generate structured g
 
 #### **Rubric Generation**
 ***
-![Image](screenshots/RubrickGenerated.PNG)
+![Image](screenshots/GeneratedRubric.PNG)
 
 #### **Mobile View**
 ***
