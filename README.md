@@ -19,16 +19,16 @@ AI-powered grading rubric generator for educators. Quickly generate structured g
 📸 **Check out the screenshots below** 👇  
 
 #### **Home Page**
-![Image](screenshots/HomePage.png)
-![Image](screenshots/EnteredValues.png)
+![Image](screenshots/HomePage.PNG)
+![Image](screenshots/EnteredValues.PNG)
 
 #### **Rubric Generation**
 ***
-![Image](screenshots/RubrickGenerated.png)
+![Image](screenshots/RubrickGenerated.PNG)
 
 #### **Mobile View**
 ***
-![Image](screenshots/Responsive.png)
+![Image](screenshots/Responsive.PNG)
 
 #### Getting Started with Create React App
 
